@@ -5,18 +5,22 @@
     { name: 'alex', age: 27 },
     { name: 'senku', age: 19 },
     { name: 'foo', age: NaN },
+    {},
     { name: 'var', age: 'undefined' },
     { name: 'leet', age: -2000 },
   ];
-  function findAlex(element) {
-    return element.name == 'alex';
+  function numberFilter(obj) {
+    if (
+      'age' in obj &&
+      typeof obj.age == 'number' &&
+      !isNaN(obj.age) &&
+      obj.age > 0
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   }
-  function findAgeUnder27(element) {
-    return element.age < 27;
-  }
-
-  const newJSON = testJSON.filter(findAlex);
-  const ageJSON = testJSON.filter(findAgeUnder27);
+  const newJSON = testJSON.filter(numberFilter);
   console.log(newJSON);
-  console.log(ageJSON);
 })();
