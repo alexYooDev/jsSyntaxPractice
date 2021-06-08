@@ -2,9 +2,10 @@
 
 (function test() {
   const arr = [1, 2, 3, 9, 4, 5, 10, 6, 20, 30, 40];
-  function tenOrUnder(value) {
-    return value >= 1 && value <= 10;
+  const obj = { min: 1, max: 10 };
+  function getUnder10(value) {
+    return value >= this.min && value <= this.max;
   }
-  const newArr = arr.filter(tenOrUnder);
+  const newArr = arr.filter(getUnder10, obj);
   console.log(newArr);
 })();
