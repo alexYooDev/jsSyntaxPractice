@@ -2,9 +2,8 @@
 
 (function test() {
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  function getThreeAndUnder(value) {
-    return value <= 3;
-  }
-  const newArr = arr.filter(getThreeAndUnder);
+  const newArr = arr.filter((n) => {
+    return n <= 3;
+  });
   console.log(newArr);
 })();
