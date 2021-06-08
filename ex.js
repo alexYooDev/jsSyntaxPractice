@@ -1,26 +1,10 @@
+//배열에서 1~10 사이의 수만 추출
+
 (function test() {
-  const testJSON = [
-    { name: 'jason', age: 27 },
-    { name: 'charles', age: 20 },
-    { name: 'alex', age: 27 },
-    { name: 'senku', age: 19 },
-    { name: 'foo', age: NaN },
-    {},
-    { name: 'var', age: 'undefined' },
-    { name: 'leet', age: -2000 },
-  ];
-  function numberFilter(obj) {
-    if (
-      'age' in obj &&
-      typeof obj.age == 'number' &&
-      !isNaN(obj.age) &&
-      obj.age > 0
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+  const arr = [1, 2, 3, 9, 4, 5, 10, 6, 20, 30, 40];
+  function tenOrUnder(value) {
+    return value >= 1 && value <= 10;
   }
-  const newJSON = testJSON.filter(numberFilter);
-  console.log(newJSON);
+  const newArr = arr.filter(tenOrUnder);
+  console.log(newArr);
 })();
