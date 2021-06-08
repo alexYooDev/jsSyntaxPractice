@@ -1,9 +1,22 @@
-// 배열에서 3보다 작은 값을 추출하여 새로운 배열에 저장
-
 (function test() {
-  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  const newArr = arr.filter((n) => {
-    return n <= 3;
-  });
-  console.log(newArr);
+  const testJSON = [
+    { name: 'jason', age: 27 },
+    { name: 'charles', age: 20 },
+    { name: 'alex', age: 27 },
+    { name: 'senku', age: 19 },
+    { name: 'foo', age: NaN },
+    { name: 'var', age: 'undefined' },
+    { name: 'leet', age: -2000 },
+  ];
+  function findAlex(element) {
+    return element.name == 'alex';
+  }
+  function findAgeUnder27(element) {
+    return element.age < 27;
+  }
+
+  const newJSON = testJSON.filter(findAlex);
+  const ageJSON = testJSON.filter(findAgeUnder27);
+  console.log(newJSON);
+  console.log(ageJSON);
 })();
