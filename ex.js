@@ -1,7 +1,9 @@
-//map을 이용해 string을 숫자로 바꾸기
-
-(function test() {
-  const str = ['1', '2', '3'];
-  const int = str.map((str) => parseInt(str));
-  console.log(int);
-})();
+(function fibonacci(num) {
+  if (num === 0) {
+    return 0;
+  }
+  if (num === 1) {
+    return 1;
+  }
+  return fibonacci(num - 2) + fibonacci(num - 1);
+})(10);
