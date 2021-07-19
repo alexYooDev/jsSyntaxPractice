@@ -2,6 +2,7 @@
 let word;
 // 다음 순서 단어
 let newWord;
+const count = 0;
 
 const number = Number(prompt('몇 명이 참가하나요?'));
 const $input = document.querySelector('input');
@@ -25,16 +26,22 @@ function setOrder(order) {
 function onClick() {
   if (!word || word[word.length - 1] === newWord[0]) {
     // 데이터를 바꾸면 화면도 바꾸어 주어야 함 (이 두가지는 항상 같이 따라와야 함)
-    word = newWord;
-    $word.textContent = word;
-    const order = parseInt($order.textContent); // 현재 순서
-    setOrder(order);
+    if (newWord.length === 3) {
+      word = newWord;
+      $word.textContent = word;
+      const order = parseInt($order.textContent); // 현재 순서
+      setOrder(order);
+      count++;
+    } else {
+      alert('exceeded 3 syllables');
+    }
     // input등의 입력값은 value를 변경해야 함.
   } else {
     // 틀린 단어: 오답 메시지
-    alert('Wrong answer!');
+    alert(`Wrong answer! Time Successful: ${count}`);
     word = '';
     $word.textContent = word;
+    count = 0;
     const order = parseInt($order.textContent); // 현재 순서
     setOrder(order);
   }
