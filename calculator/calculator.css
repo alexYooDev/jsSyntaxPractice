@@ -4,6 +4,7 @@
 
 .indicator {
   border: black solid 1px;
+  margin: 1px 1px 1px 1px;
 }
 
 h3 {
@@ -14,6 +15,7 @@ h3 {
   margin: auto;
   border: black solid 1px;
   flex-wrap: wrap;
+  width: 10rem;
 }
 
 .calculator > .buttons {

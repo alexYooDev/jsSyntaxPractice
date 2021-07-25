@@ -53,10 +53,16 @@ function onClick(event) {
       answer = div(numOne, numTwo);
     }
     $answer_txt.textContent = answer;
+    numOne = '';
+    numTwo = '';
+    operator = '';
   } else {
     if (!operator) {
+      $numOne_txt.textContent = numOne;
+      $numTwo_txt.textContent = numTwo;
+      $operator_txt.textContent = operator;
       if (!numOne) {
-        numOne = event.target.textContent;
+        numOne = Number(event.target.textContent);
       } else {
         numOne += event.target.textContent;
         numOne = Number(numOne);
