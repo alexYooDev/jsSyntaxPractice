@@ -64,6 +64,9 @@ function onClick(event) {
       $numTwo_txt.textContent = numTwo;
     }
   }
+  console.log(numOne);
+  console.log(operator);
+  console.log(numTwo);
 }
 
 for (let i = 0; i < $btn.length; i++) {
