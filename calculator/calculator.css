@@ -1,0 +1,22 @@
+.calculator {
+  text-align: center;
+}
+
+.indicator {
+  border: black solid 1px;
+}
+
+h3 {
+  text-align: center;
+}
+
+.calculator {
+  margin: auto;
+  border: black solid 1px;
+  flex-wrap: wrap;
+}
+
+.calculator > .buttons {
+  margin: auto;
+  align-items: center;
+}
