@@ -10,9 +10,11 @@
   <body>
     <h3>Web Calculator</h3>
     <div class="calculator">
-      <div class="indicator">
-        <span id="numOne_txt"></span><span id="operator_txt">&nbsp</span
-        ><span id="numTwo_txt"></span>
+      <div class="screen">
+        <div class="indicator">
+          <span id="numOne_txt"></span><span id="operator_txt">&nbsp</span
+          ><span id="numTwo_txt"></span>
+        </div>
         <div><span id="answer_txt"></span></div>
       </div>
       <table class="buttons">
@@ -38,7 +40,7 @@
           <tr>
             <td><button id="btn_9">9</button></td>
             <td><button id="btn_0">0</button></td>
-            <td><button>C</button></td>
+            <td><button id="btn_clear">C</button></td>
             <td><button id="btn_result">=</button></td>
           </tr>
         </tbody>

@@ -7,19 +7,19 @@ let $numOne_txt = document.querySelector('#numOne_txt');
 let $numTwo_txt = document.querySelector('#numTwo_txt');
 let $operator_txt = document.querySelector('#operator_txt');
 let $answer_txt = document.querySelector('#answer_txt');
+let $indicator = document.querySelector('.indicator');
 let $btn = document.querySelectorAll('button');
 
-function sum(a, b) {
-  return a + b;
-}
-function sub(a, b) {
-  return a - b;
-}
-function mul(a, b) {
-  return a * b;
-}
-function div(a, b) {
-  return a / b;
+function operate(op, numOne, numTwo) {
+  if (op === '+') {
+    return numOne + numTwo;
+  } else if (op === '-') {
+    return numOne - numTwo;
+  } else if (op === '*') {
+    return numOne * numTwo;
+  } else if (op === '/') {
+    return numOne / numTwo;
+  }
 }
 
 function onClick(event) {
@@ -28,22 +28,24 @@ function onClick(event) {
     if (!numOne);
     else operator = event.target.textContent;
     $operator_txt.textContent = operator;
+    if (numTwo) {
+      numOne = operate(operator, numOne, numTwo);
+      numTwo = 0;
+      operater = event.target.textContent;
+      let span = document.createElement('span');
+      span.id = 'op';
+      span.innerHTML = operator;
+      $indicator.appendChild(span);
+      let numN = document.createElement('span');
+      numN.id = 'numN';
+      document.querySelector('#numN').textContent = numTwo;
+      $indicator.appendChild(numN);
+    }
 
     // 누른 버튼이 '=' 이면
   } else if (event.target.textContent === '=') {
-    if (operator === '+') {
-      answer = sum(numOne, numTwo);
-    } else if (operator === '-') {
-      answer = sub(numOne, numTwo);
-    } else if (operator === '*') {
-      answer = mul(numOne, numTwo);
-    } else if (operator === '/') {
-      answer = div(numOne, numTwo);
-    }
+    answer = operate(operator, numOne, numTwo);
     $answer_txt.textContent = answer;
-    numOne = '';
-    numTwo = '';
-    operator = '';
 
     // 누른 버튼이 number 라면
   } else if (typeof Number(event.target.textContent) === 'number') {
