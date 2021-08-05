@@ -2,10 +2,13 @@
 // math.random은 암호학적으로 완전한 무작위가 아니기 때문에
 // 보안과 관ㄹ현된 작업은 window.crypto.getRandomValues() 함수를 쓰는 편이 안전하다.
 
+// Arrays : Digit Containers
 const target = [];
 const numbers = [];
 const answer = [];
 const tries = [];
+
+// Tags
 const $answer = document.querySelector('#answer');
 const $form = document.querySelector('#form');
 const $log = document.querySelector('#log');
@@ -24,15 +27,20 @@ console.log(target);
 function chkInput(input) {
   // 길이 체크
   if (input.length !== 4) {
-    return alert('4 digits only'); // -> undefined
+    return alert('4 Digits Only!'); // -> undefined
+  }
+
+  //숫자 체크
+  if (isNaN(Number(input))) {
+    return alert('Numbers Only!'); // -> undefined
   }
   // 중복 체크
   if (new Set(input).size !== 4) {
-    return alert('No duplicates'); // -> undefined
+    return alert('No Duplicates!'); // -> undefined
   }
   // 중복 답안 체크
   if (tries.includes(input)) {
-    return alert("You've already typed the same number"); // -> undefined
+    return alert("You've Already Typed the Same Number!"); // -> undefined
   }
   return true;
 }
@@ -53,10 +61,18 @@ function chkSnB(inputValue, target) {
       }
     }
   }
-  $log.append(
-    `${inputValue}: ${strike} 스트라이크 ${ball} 볼`,
-    document.createElement('br')
-  );
+  // append의 경우: createTextNode 함수를 써서 생성할 필요 없이 바로 문자열을 추가하고, 복수(태그 포함)를 추가할 수 있도록 발전.
+  // 대부분의 경우 append를 활용.
+
+  if (strike > 0 || ball > 0) {
+    $log.append(
+      `${inputValue}: ${strike} Strikes ${ball} Balls`,
+      document.createElement('br')
+    );
+    //숫자를 하나도 못 맞출 경우: Out 게임 종료.
+  } else {
+    $log.append(`Out! The Answer was ${target.join('')}`);
+  }
 }
 
 function onSubmit(event) {
@@ -70,14 +86,18 @@ function onSubmit(event) {
   if (!chkInput(inputValue)) {
     return;
   }
+
+  //자리 숫자 모두 잃치할 경우: 홈런
   if (target.join('') === inputValue) {
-    $log.textContent = 'HomeRun!';
+    $log.append(`HomeRun!: ${target.join('')}`);
     return;
   }
+
+  //10번 시도를 초과할 경우: 패배
   if (tries.length >= 9) {
     // 새로 추가할 text 사항이 있을 때 마다 덧 붙일 수 있어 용이하다.
     const message = document.createTextNode(
-      `You Lose: The answer was ${answer.join('')}`
+      `You Lose: The answer was ${target.join('')}`
     );
     // appendChild의 경우: createTextNode로 노드를 만든 뒤 추가해야 함
     $log.appendChild(message);
@@ -98,3 +118,11 @@ function onSubmit(event) {
 $form.addEventListener('submit', onSubmit);
 
 // textContent와 innerHTML 차이: textContent는 모든 글자를 문자열로 인식, innerHTML은 문자열 외 태그 또한 인식
+
+// indexOf 와 includes: indexOf && includes = 배열이나 문자열에 원하는 값이 있는지 탐색하는 메서드.
+// indexOf: 찾는 값이 있으면 해당 인덱스 반환, 없으면 -1 반환
+// includes: 찾는 값이 있으면 true (찾는 값의 인덱스는 알려주지 않는다), 없으면 false
+
+//document.createElement: 동적으로 태그 생성
+//document.createTextNode: 동적으로 텍스트 생성
+// 화면에 append를 하기 전까지는 보이지 않는다.
