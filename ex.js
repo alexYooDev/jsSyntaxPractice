@@ -46,9 +46,19 @@
 // console.log(`ball: ${ball}`);
 
 //2를 곱한 결과를 가져오고 싶다. -> 순회한 결과를 반영한 새로운 배열 리턴. (기존 배열은 변하지 않는다.)
-const array = [1, 2, 3, 4];
-array.map((element, i) => {
-  return element * 2;
-});
+// const array = [1, 2, 3, 4];
+// array.map((element, i) => {
+//   return element * 2;
+// });
 
 //왜 쓰는가? : 연달아서 기능을 실행할 수 있음.
+
+// fill() 메서드와 map() 메서드를 연계하여 1~9까지 수의 배열 생성
+
+let arr = Array(9)
+  .fill(0)
+  .map((element, i) => {
+    return i + 1;
+  });
+
+console.log(arr);
