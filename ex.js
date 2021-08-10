@@ -55,10 +55,38 @@
 
 // fill() 메서드와 map() 메서드를 연계하여 1~9까지 수의 배열 생성
 
-let arr = Array(9)
-  .fill(0)
-  .map((element, i) => {
-    return i + 1;
-  });
+// let arr = Array(9)
+//   .fill(0)
+//   .map((element, i) => {
+//     return i + 1;
+//   });
 
-console.log(arr);
+// console.log(arr);
+
+function solver(i1, i2, i3) {
+  minimum = Math.min(...[i1, i2, i3]);
+  checkList = [];
+  num = 0;
+  while (checkList.length <= minimum) {
+    let possibleRange = [
+      parseInt(num / i1),
+      parseInt(num / i2),
+      parseInt(num / i3),
+    ];
+    let feasibility = false;
+    for (let i = 0; i < possibleRange[0] + 1; i++) {
+      for (let j = 0; possibleRange[1] + 1; j++) {
+        for (let k = 0; possibleRange[2] + 1; k++) {
+          if (i1 * i + i2 * j + i3 * k === num) {
+            checkList.push(num);
+            feasibility = true;
+            break;
+          } else {
+            continue;
+          }
+        }
+      }
+    }
+  }
+}
+console.log(solver(7, 11, 17));
