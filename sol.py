@@ -1,12 +1,10 @@
-n = int(input())
-total = 0
-avg = 0
-count = 0
+# 비밀번호를 만들어주는 함수 yoonHa()를 만들어봅시다.
+survivors = list(range(1, 101))
+stick_owner_idx = 0
 
-while True:
-    total = total + n
-    count = count + 1
-    avg = total/count
-    if n == 0:
-        print(avg)
-        break 
+while len(survivors) > 1:
+    loser = (stick_owner_idx + 1) % len(survivors)
+    del survivors[loser]
+    stick_owner_idx = loser
+
+print(survivors[0])
