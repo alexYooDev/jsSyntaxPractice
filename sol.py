@@ -6,5 +6,5 @@ while len(survivors) > 1:
     loser = (stick_owner_idx + 1) % len(survivors)
     del survivors[loser]
     stick_owner_idx = loser
-
+    print(survivors)
 print(survivors[0])
