@@ -1,10 +1,18 @@
-# 비밀번호를 만들어주는 함수 yoonHa()를 만들어봅시다.
-survivors = list(range(1, 101))
-stick_owner_idx = 0
+bina = '00000101000000000010100000 00001000100000000100010000 000010000011111100000 00001000000011100000010000'
 
-while len(survivors) > 1:
-    loser = (stick_owner_idx + 1) % len(survivors)
-    del survivors[loser]
-    stick_owner_idx = loser
-    print(survivors)
-print(survivors[0])
+a_binary_string = "01100001 01100010 01100011"
+
+binary_values = a_binary_string.split()
+
+ascii_string = ""
+for binary_value in binary_values:
+    an_integer = int(binary_value, 2)
+
+
+    ascii_character = chr(an_integer)
+
+
+    ascii_string += ascii_character
+
+
+print(ascii_string)
