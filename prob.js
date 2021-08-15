@@ -1,3 +1,29 @@
+function countMin(arr) {
+  let count = 0;
+  let searchMin = Math.min(...arr);
+  let pos = arr.indexOf(searchMin);
+
+  while (pos !== -1) {
+    count++;
+    pos = arr.indexOf(searchMin, pos + 1);
+  }
+
+  return count;
+}
+
+function countMax(arr) {
+  let count = 0;
+  let searchMax = Math.max(...arr);
+  let pos = arr.indexOf(searchMax);
+
+  while (pos !== -1) {
+    count++;
+    pos = arr.indexOf(searchMax, pos + 1);
+  }
+
+  return count;
+}
+
 function solution(scores) {
   let answer = '';
   let arr = scores;
@@ -16,30 +42,16 @@ function solution(scores) {
   for (let i = 0; i < arr.length; i++) {
     for (let j = 0; j < arr.length; j++) {
       if (
-        (i === j && arr[i][j] === Math.max(...arr[i])) ||
-        (i === j && arr[i][j] === Math.min(...arr[i]))
+        (j === i &&
+          arr[j][i] === Math.max(...arr[i]) &&
+          countMax(arr[i]) <= 1) ||
+        (j === i && arr[j][i] === Math.min(...arr[i]) && countMin(arr[i]) <= 1)
       ) {
-        arr[i].splice(i, 1);
+        arr[j].splice(j, 1);
       }
     }
     a_len.push(arr[i].length);
   }
-  console.log(arr);
-  console.log(a_len);
-
-  // const sumArr = (arr) => {
-  //   const newArr = [];
-  //   arr.forEach((sub) => {
-  //     sub.forEach((num, idx) => {
-  //       if (newArr[idx]) {
-  //         newArr[idx] += num;
-  //       } else {
-  //         newArr[idx] = num;
-  //       }
-  //     });
-  //   });
-  //   return newArr;
-  // };
 
   total = arr.map(function (arr) {
     return arr.reduce(function (sum, item) {
@@ -64,6 +76,7 @@ function solution(scores) {
       answer += 'F';
     }
   }
+  console.log(arr);
   console.log(avg);
 
   return answer;
