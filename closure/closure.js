@@ -11,11 +11,11 @@ console.log(a);
 
 // Reference Error
 
-function c {
+function c() {
   let d = 1;
 }
 
-console.log(d)
+console.log(d);
 
 // 1
 
@@ -23,7 +23,7 @@ if (true) {
   var e = 1;
 }
 
-console.log(e)
+console.log(e);
 
 // 1
 
@@ -31,18 +31,18 @@ if (true) {
   let f = 1;
 }
 
-console.log(f)
+console.log(f);
 
-// Reference Error 
+// Reference Error
 
-for(var i = 0; i<5; i++){}
+for (var i = 0; i < 5; i++) {}
 
-console.log(i)
+console.log(i);
 
 // 5
 
-for(let i = 0; i<5; i++){}
+for (let i = 0; i < 5; i++) {}
 
-console.log(i)
+console.log(i);
 
 //Reference Error 블록 밖에서는 접근 불가능
