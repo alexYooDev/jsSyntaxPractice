@@ -36,5 +36,28 @@ const shiftHands = () => {
   $computer.style.background = `url(${IMG_URL}) ${rspXcoord[computerChoice]}px 0 / auto 200px`;
 };
 
+let intervalId = setInterval(shiftHands, 50);
+
+// clickBtn을 n번 호출하면, 1~n번 인터벌으로 id가 부여 -> 최종적으로는 n번이 id에 저장
+// 다음 버튼을 클릭하면 clearInterval은 n번 인터벌만 취소 : 1~n-1 인터벌이 멈추지 않는다.
+const clickBtn = () => {
+  // 클릭하자 마자 실행
+  clearInterval(intervalId);
+  $rock.removeEventListener('click', clickBtn);
+  $paper.removeEventListener('click', clickBtn);
+  $scissors.removeEventListener('click', clickBtn);
+  setTimeout(() => {
+    // 클릭 1초 후에 실행
+    clearInterval(intervalId);
+    $rock.addEventListener('click', clickBtn);
+    $paper.addEventListener('click', clickBtn);
+    $scissors.addEventListener('click', clickBtn);
+    intervalId = setInterval(shiftHands, 50);
+  }, 1000);
+};
+
+$rock.addEventListener('click', clickBtn);
+$paper.addEventListener('click', clickBtn);
+$scissors.addEventListener('click', clickBtn);
+
 // 0.05초로 설정을 하였지만, 코드 실행시간이 더 걸릴 경우, 정확히 0.05초 간격으로 반복되지 않는다.
-setInterval(shiftHands, 50);
