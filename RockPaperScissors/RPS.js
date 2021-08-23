@@ -68,12 +68,10 @@ const clickBtn = (event) => {
 
     // [2.-1] 승리 조건, [-2,1] 패배 조건, 그 외 무승부
     if ([2, -1].includes(diff)) {
-      console.log('승리');
       message = '승리';
       totalScore.push('승리');
       score++;
     } else if ([-2, 1].includes(diff)) {
-      console.log('패배');
       message = '패배';
       if ('승리' in totalScore) {
         totalScore.remove('승리');
@@ -81,36 +79,35 @@ const clickBtn = (event) => {
       totalScore.push('패배');
       score--;
     } else {
-      console.log('무승부');
       if ('승리' in totalScore) {
         totalScore.remove('승리');
       }
       message = '무승부';
     }
+
     let numOfWin = totalScore.filter((x) => x === '승리').length;
     let numOfLose = totalScore.filter((x) => x === '패배').length;
 
-    console.log(numOfLose);
-    console.log(numOfWin);
-    console.log(totalScore);
     if (numOfWin >= 2) {
       alert(`삼세판 승리하셨습니다. : 최종 스코어 ${score}점`);
       totalScore = [];
       numOfWin = 0;
+      score = 0;
     } else if (numOfLose >= 2) {
       alert(`삼세판 패배하셨습니다. : 최종 스코어 ${score}점`);
       totalScore = [];
       numOfLose = 0;
+      score = 0;
     }
-    $score.textContent = `${message}: 현재 스코어 ${score}점`;
-
     setTimeout(() => {
       // 클릭 1초 후에 실행
       clickability = true;
-      $myHand.style.background = '';
       clearInterval(intervalId);
       intervalId = setInterval(shiftHands, 50);
+      $myHand.style.background = '';
     }, 1000);
+
+    $score.textContent = `${message}: 현재 스코어 ${score}점`;
   }
 };
 
