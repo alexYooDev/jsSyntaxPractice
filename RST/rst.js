@@ -45,9 +45,10 @@ function onClick() {
     endTime = new Date();
     const current = (endTime - startTime) / 1000;
     records.push(current);
+    // reduce 누적 값 리턴 만능 메서드
     const avg = records.reduce((acc, curr) => acc + curr) / records.length;
     // 초록색 화면을 클릭한 시점이 빨간색 화면으로 전환되고 시작한 시간보다 뒤기 때문에, 걸린 시간이 연산됨.
-    $result.textContent = `현재 반응속도: ${current}초 / 평균 반응속도: ${avg}초 걸렸습니다.`;
+    $result.textContent = `현재 반응속도: ${current}초 | 평균 반응속도: ${avg}초 걸렸습니다.`;
     $screen.classList.replace('go', 'ready');
     $screen.textContent = 'Click to start';
   }
