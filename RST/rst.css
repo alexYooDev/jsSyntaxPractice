@@ -7,6 +7,7 @@
 
 #screen.ready {
   background-color: blue;
+  color: white;
 }
 
 #screen.set {

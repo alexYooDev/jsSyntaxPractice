@@ -18,29 +18,31 @@ const $result = document.querySelector('#result');
 let startTime;
 let endTime;
 let records = [];
+let timeOutId;
 
 function onClick() {
   // JavaScript에서 class에 접근할 때는 className을 사용.
   // classList.contains(class) 해당 클래스가 있는 지 확인하고 있으면 true 아니면 false 반환
 
   // ready === blue
-  if ($screen.className === 'ready') {
+  if ($screen.classList.contains('ready')) {
     // set === red
     $screen.classList.replace('ready', 'set');
     $screen.textContent = `Wait for it`;
-    setTimeout(() => {
+    // 타이머를 특정하기 위해 변수에 할당
+    timeOutId = setTimeout(() => {
       $screen.classList.replace('set', 'go');
       $screen.textContent = 'Click to stop';
 
       //시작 시간 측정
       startTime = new Date();
     }, parseInt(Math.random() * 9000 + 1));
-    //} else if ($screen.className === 'set') {
-    //alert('너무 성급하셨네요!');
-    //$screen.className = 'ready';
-    //$screen.textContent = 'Click to Start';
-    // go === green
-  } else if ($screen.className === 'go') {
+  } else if ($screen.classList.contains('set')) {
+    //계속 작동하고 있는 타이머를 제거한다.
+    $screen.textContent = 'Wait for Green! Click Again';
+    clearTimeout(timeOutId);
+    $screen.className = 'ready';
+  } else if ($screen.classList.contains('go')) {
     // 종료 시간 측정
     endTime = new Date();
     const current = (endTime - startTime) / 1000;
@@ -48,7 +50,7 @@ function onClick() {
     // reduce 누적 값 리턴 만능 메서드
     const avg = records.reduce((acc, curr) => acc + curr) / records.length;
     // 초록색 화면을 클릭한 시점이 빨간색 화면으로 전환되고 시작한 시간보다 뒤기 때문에, 걸린 시간이 연산됨.
-    $result.textContent = `현재 반응속도: ${current}초 | 평균 반응속도: ${avg}초 걸렸습니다.`;
+    $result.textContent = `${records.length}차시 반응속도: ${current}초 | 평균 반응속도: ${avg}초 걸렸습니다.`;
     $screen.classList.replace('go', 'ready');
     $screen.textContent = 'Click to start';
   }
