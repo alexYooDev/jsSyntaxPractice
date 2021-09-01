@@ -5,3 +5,18 @@
  * 한줄, 대각선 이 완성되는 쪽이 승리 : 점수 획득 (카운트)
  *
  *  */
+const data = [];
+for (let i = 0; i < 3; i++) {
+  data.push([]);
+}
+const $table = document.createElement('table');
+$table.id = 'table';
+for (let i = 0; i < 3; i++) {
+  const $tr = document.createElement('tr');
+  $table.append($tr);
+  for (let j = 0; j < 3; j++) {
+    const $td = document.createElement('td');
+    $tr.append($td);
+  }
+}
+document.body.append($table);
