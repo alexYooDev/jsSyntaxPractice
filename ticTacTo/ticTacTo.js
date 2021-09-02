@@ -21,12 +21,11 @@ const shiftOX = (event) => {
   // 클릭한 칸이 차 있다면 (removeEventlistener를 사용하면 실수 확률 => 조건으로 처리)
   if (event.target.textContent !== '') {
     return;
-  } else {
-    // turn 이 바뀔 때 마다 O 와 X를 교차
-    event.target.textContent = turn;
-    // 삼항연산자로 축약
-    turn = turn === 'O' ? 'X' : 'O';
   }
+  // turn 이 바뀔 때 마다 O 와 X를 교차
+  event.target.textContent = turn;
+  // 삼항연산자로 축약
+  turn = turn === 'X' ? 'O' : 'X';
 };
 
 const rows = [];
