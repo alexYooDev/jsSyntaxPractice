@@ -100,13 +100,19 @@
 
 //Destructuring
 
-const rows = [];
+// const rows = [];
 
-for (let i = 0; i < 5; i++) {
-  cells = [];
-  for (let j = 0; j < 4; j++) {
-    cells.push(1);
-  }
-  rows.push(cells);
-}
-console.log(rows);
+// for (let i = 0; i < 5; i++) {
+//   cells = [];
+//   for (let j = 0; j < 4; j++) {
+//     cells.push(1);
+//   }
+//   rows.push(cells);
+// }
+// console.log(rows);
+
+// const arr = [null, 1, 2, 3];
+
+// const isNull = arr.some((val) => val === null);
+
+// if (isNull) console.log(false);

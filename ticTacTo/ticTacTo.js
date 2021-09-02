@@ -14,7 +14,48 @@
 const { body } = document;
 const $table = document.createElement('table');
 const $result = document.createElement('div');
+const rows = [];
 let turn = 'O';
+
+// 승리 조건 :
+//요소의 i 값이 전부 다르고, j값의 차가 1인 경우
+// i의 값이 전부 다르고, j 값이 같을 경우
+// i의 값이 같고 j의 차가 1인 경우
+
+const checkWinner = (target) => {
+  const rowIdx = target.parentNode.rowIndex;
+  const cellIdx = target.cellIndex;
+  let isWinner = false;
+  // 열 검사
+  if (
+    rows[rowIdx][0].textContent === turn &&
+    rows[rowIdx][1].textContent === turn &&
+    rows[rowIdx][2].textContent === turn
+  ) {
+    isWinner = true;
+    // 행 검사
+  } else if (
+    rows[0][cellIdx].textContent == turn &&
+    rows[1][cellIdx].textContent === turn &&
+    rows[2][cellIdx].textContent === turn
+  ) {
+    isWinner = true;
+    // 대각선 검사
+  } else if (
+    rows[0][0].textContent === turn &&
+    rows[1][1].textContent === turn &&
+    rows[2][2].textContent === turn
+  ) {
+    isWinner = true;
+  } else if (
+    rows[0][2].textContent === turn &&
+    rows[1][1].textContent === turn &&
+    rows[2][0].textContent === turn
+  ) {
+    isWinner = true;
+  }
+  return isWinner;
+};
 
 // 각 칸을 클릭 이벤트 발생 시
 const shiftOX = (event) => {
@@ -24,28 +65,35 @@ const shiftOX = (event) => {
   }
   // turn 이 바뀔 때 마다 O 와 X를 교차
   event.target.textContent = turn;
+  if (checkWinner(event.target)) {
+    $result.textContent = `${turn} Wins`;
+    $table.removeEventListener('click', shiftOX);
+    return;
+  }
+  // 하나도 빠짐없이 조건을 충족할 경우 true != some(하나라도 충족)과 반대
+  let draw = rows.flat().every((cell) => cell.textContent);
+  if (draw) {
+    $result.textContent = 'Draw';
+    return;
+  }
+  // 무승부 판정
   // 삼항연산자로 축약
   turn = turn === 'X' ? 'O' : 'X';
 };
 
-const rows = [];
 for (let i = 0; i < 3; i++) {
   const $tr = document.createElement('tr');
   const cells = [];
   for (let j = 1; j <= 3; j++) {
     const $td = document.createElement('td');
     cells.push($td);
-    $td.addEventListener('click', shiftOX);
     $tr.appendChild($td);
   }
   rows.push(cells);
   $table.appendChild($tr);
 }
 
+//event bubbling: 자식 태그에서 발생한 이벤트는 부모 태그에서도 반응하는 HTML의 특성이용.
+$table.addEventListener('click', shiftOX);
 body.append($table);
 body.append($result);
-
-// 승리 조건 :
-//요소의 i 값이 전부 다르고, j값의 차가 1인 경우
-// i의 값이 전부 다르고, j 값이 같을 경우
-// i의 값이 같고 j의 차가 1인 경우
