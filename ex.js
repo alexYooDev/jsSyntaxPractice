@@ -91,9 +91,22 @@
 // }
 // console.log(solver(7, 11, 17));
 
-i = 1;
+// i = 1;
 
-while (i < 5) {
-  console.log(i);
-  i += 1;
+// while (i < 5) {
+//   console.log(i);
+//   i += 1;
+// }
+
+//Destructuring
+
+const rows = [];
+
+for (let i = 0; i < 5; i++) {
+  cells = [];
+  for (let j = 0; j < 4; j++) {
+    cells.push(1);
+  }
+  rows.push(cells);
 }
+console.log(rows);
