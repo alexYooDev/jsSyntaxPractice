@@ -9,7 +9,7 @@
  * const arr = [1,2,3,4,5];
  * const [one, two, three, four, five] = arr (특정요소 비선택시 빈칸으로)
  *  */
-// == const body = document.body : 구조분해할당 (디스트럭쳐링)
+// == const body = document.body : 구조분해할당 (Destructuring)
 // 어떤 객체의 속성 명이 같은 변수를 선언할 떄 사용
 const { body } = document;
 const $table = document.createElement('table');
@@ -57,6 +57,13 @@ const checkWinner = (target) => {
   return isWinner;
 };
 
+/** 컴퓨터 턴
+ * 플레이어가 클릭 시 다음 턴은 자동으로 컴퓨터의 턴
+ * => 빈칸이라면 랜덥으로 설정해서 'X'를 turn 변수에 저장
+ * => 화면에 표기하고 대기
+ *
+ */
+
 // 각 칸을 클릭 이벤트 발생 시
 const shiftOX = (event) => {
   // 클릭한 칸이 차 있다면 (removeEventlistener를 사용하면 실수 확률 => 조건으로 처리)
@@ -65,6 +72,7 @@ const shiftOX = (event) => {
   }
   // turn 이 바뀔 때 마다 O 와 X를 교차
   event.target.textContent = turn;
+
   if (checkWinner(event.target)) {
     $result.textContent = `${turn} Wins`;
     $table.removeEventListener('click', shiftOX);
@@ -79,6 +87,17 @@ const shiftOX = (event) => {
   // 무승부 판정
   // 삼항연산자로 축약
   turn = turn === 'X' ? 'O' : 'X';
+  let ranRow = Math.floor(Math.random() * 3);
+  let ranCell = Math.floor(Math.random() * 3);
+
+  let computer;
+  if (
+    rows[ranRow][ranCell].textContent === '' &&
+    rows[ranRow][ranCell].textContent !== turn
+  ) {
+    computer = rows[ranRow][ranCell];
+  }
+  console.log(computer);
 };
 
 for (let i = 0; i < 3; i++) {
