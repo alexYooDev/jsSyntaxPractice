@@ -57,6 +57,20 @@ const checkWinner = (target) => {
   return isWinner;
 };
 
+const WinnerOrDraw = (target) => {
+  const isWinner = checkWinner(target);
+  if (isWinner) {
+    $result.textContent = `${turn} Wins`;
+    return;
+  }
+  // 하나도 빠짐없이 조건을 충족할 경우 true != some(하나라도 충족)과 반대
+  const draw = rows.flat().every((cell) => cell.textContent);
+  if (draw) {
+    $result.textContent = 'Draw';
+    return;
+  }
+  turn = turn === 'X' ? 'O' : 'X';
+};
 /** 컴퓨터 턴
  * 플레이어가 클릭 시 다음 턴은 자동으로 컴퓨터의 턴
  * => 빈칸이라면 랜덥으로 설정해서 'X'를 turn 변수에 저장
@@ -72,34 +86,22 @@ const shiftOX = (event) => {
   }
   // turn 이 바뀔 때 마다 O 와 X를 교차
   event.target.textContent = turn;
-
-  if (checkWinner(event.target)) {
-    $result.textContent = `${turn} Wins`;
-    $table.removeEventListener('click', shiftOX);
-    return;
-  }
-  // 하나도 빠짐없이 조건을 충족할 경우 true != some(하나라도 충족)과 반대
-  let draw = rows.flat().every((cell) => cell.textContent);
-  if (draw) {
-    $result.textContent = 'Draw';
-    return;
-  }
+  WinnerOrDraw(event.target);
   // 무승부 판정
   // 삼항연산자로 축약
-  turn = turn === 'X' ? 'O' : 'X';
-  let ranRow = Math.floor(Math.random() * 3);
-  let ranCell = Math.floor(Math.random() * 3);
+  // 턴 돌리기
 
-  let computer;
-  if (
-    rows[ranRow][ranCell].textContent === '' &&
-    rows[ranRow][ranCell].textContent !== turn
-  ) {
-    computer = rows[ranRow][ranCell];
+  if (turn === 'X') {
+    // 나머지 빈칸을 상수에 저장
+    const emptyCells = rows.flat().filter((v) => !v.textContent);
+    const randomCell =
+      emptyCells[Math.floor(Math.random() * emptyCells.length)];
+    randomCell.textContent = 'X';
+    WinnerOrDraw(event.target);
   }
-  console.log(computer);
 };
 
+// 체커판 생성
 for (let i = 0; i < 3; i++) {
   const $tr = document.createElement('tr');
   const cells = [];
