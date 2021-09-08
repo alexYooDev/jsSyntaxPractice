@@ -57,13 +57,14 @@ const checkWinner = (target) => {
   return isWinner;
 };
 
-const WinnerOrDraw = (target) => {
-  const isWinner = checkWinner(target);
-  if (isWinner) {
+const winOrDraw = (target) => {
+  const win = checkWinner(target);
+  if (win) {
     $result.textContent = `${turn} Wins`;
     return;
   }
   // 하나도 빠짐없이 조건을 충족할 경우 true != some(하나라도 충족)과 반대
+  // rows 이차원배열의 모든 요소가 텍스트 컨텐트를 가질 경우 true
   const draw = rows.flat().every((cell) => cell.textContent);
   if (draw) {
     $result.textContent = 'Draw';
@@ -86,7 +87,7 @@ const shiftOX = (event) => {
   }
   // turn 이 바뀔 때 마다 O 와 X를 교차
   event.target.textContent = turn;
-  WinnerOrDraw(event.target);
+  winOrDraw(event.target);
   // 무승부 판정
   // 삼항연산자로 축약
   // 턴 돌리기
@@ -97,7 +98,7 @@ const shiftOX = (event) => {
     const randomCell =
       emptyCells[Math.floor(Math.random() * emptyCells.length)];
     randomCell.textContent = 'X';
-    WinnerOrDraw(event.target);
+    winOrDraw(event.target);
   }
 };
 
