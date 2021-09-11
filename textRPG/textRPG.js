@@ -55,16 +55,34 @@ function menuSelect(event) {
     $normalMode.style.display = 'none';
     $battleMode.style.display = 'block';
     monster = JSON.parse(
-      JSON.stringify(Math.floor(monsterList[Math.random() * monsterList.length)])
+      //간단한 깊은 복사: 이 코드의 경우, 성능 문제와 프로토타입에 반영이 되지 않는 단점 지님.
+      JSON.stringify(
+        monsterList[Math.floor(Math.random() * monsterList.length)]
+      )
     );
     monster.maxHp = monster.hp;
     $monsterName.textContent = monster.name;
     $monsterHp.textContent = `HP:${monster.hp}/${monster.maxHp}`;
     $monsterAtk.textContent = `ATK:${monster.atk}`;
-  } else if (input === '2') {
 
+    // 참조가 아닌 깊은 복사: 전부 다 참조관계가 끊기고 복사됨 (복사의 경우, 하나를 수정해도 복사한 값에 영향을 주지 않음)
+    const monster1 = JSON.parse(JSON.stringify(monsterList[0]));
+    // 객체를 대입 => 참조 (대입하는 값이 바뀌면, 저장하는 변수 또한 바뀜 서로 연결관계)
+    const monster2 = monsterList[0];
+    // 객체 리터럴을 복사. 얕은 복사의 경우 겉 껍데기만 복사하고 내부는 참조가 된다.
+    const monster3 = { ...monster[0] };
+
+    monster1.name = '새 몬스터';
+    console.log(monsterList[0].name);
+    monster2.name = '새 몬스터';
+    console.log(monsterList[0].name);
+    console.log(monsterList[0] === monster1);
+    console.log(monsterList[0] === monster2);
+  } else if (input === '2') {
+    //휴식
+    hero.hp = hero.maxHp;
   } else if (input === '3') {
-    
+    //종료
   }
 }
 
