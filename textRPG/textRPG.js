@@ -22,6 +22,19 @@ const hero = {
   hp: 100,
   xp: 0,
   atk: 10,
+
+  // this : 객체 안의 this는 객체 자기 자신을 가리킨다. 여기서는 즉, hero의 hp
+  attack(monster) {
+    monster.hp -= this.atk;
+    this.hp -= monster.atk;
+  },
+
+  // 화살표 함수를 사용하면 this의 의미는 브라우저의 윈도우(document의 부모, 브라우저 전체를 담당하는 객체)를 가리킨다.
+  // 윈도우는 생략이 가능함. this를 사용하고자 할때는 화살표 함수안에 사용하지 말자
+  heal(monster) {
+    this.hp += 20;
+    this.hp -= monster.atk;
+  },
 };
 
 let monster = null;
@@ -84,6 +97,25 @@ function menuSelect(event) {
   } else if (input === '3') {
     //종료
   }
+
+  $battleMode.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const input = event.target['battle-input'].value;
+    if (input === '1') {
+      // 공격
+      hero.attack(monster);
+      $heroHp.textContent = `HP: ${hero.hp}/${hero.maxHp}`;
+      $monsterHp.textContent = `HP: ${monster.hp}/${monster.maxHp}`;
+      $message.textContent = `${hero.atk}의 데미지를 주고, ${monster.atk}의 데미지를 받았다.`;
+    } else if (input === '2') {
+      hero.heal(monster);
+      $heroHp.textContent = `HP: ${hero.hp}/${hero.maxHp}`;
+      //회복
+    } else if (input === '3') {
+      s;
+      //도주
+    }
+  });
 }
 
 $normalMode.addEventListener('submit', menuSelect);
