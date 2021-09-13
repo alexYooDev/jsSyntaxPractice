@@ -97,11 +97,12 @@ class Game {
       } else {
         this.showMessage(
           `${hero.atk}의 데미지를 주고, ${monster.atk}의 데미지를 받았다!`
-
-      );
+        );
+      }
       this.updateHeroStat();
       this.updateMonsterStat();
-    } else if (input === '2') {
+    }
+    if (input === '2') {
       // 회복
     } else if (input === '3') {
       // 도망
