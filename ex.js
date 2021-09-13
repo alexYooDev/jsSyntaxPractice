@@ -116,3 +116,15 @@
 // const isNull = arr.some((val) => val === null);
 
 // if (isNull) console.log(false);
+
+arr = ['999', '999999', '919191', '991991991'];
+
+arr.sort((a, b) => {
+  return a - b;
+});
+
+console.log(arr);
+
+for (let i = 0; i < arr.length; i++) {
+  console.log(arr[i].charCodeAt(i));
+}
