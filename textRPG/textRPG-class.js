@@ -86,27 +86,37 @@ class Game {
       const { hero, monster } = this;
       hero.attack(monster);
       monster.attack(hero);
+
+      //영웅의 체력이 0이하로 떨어지는 경우 -> 사망
       if (hero.hp <= 0) {
-        this.showMessage(`${hero.lev} 레벨에서 전사. 다음 도전자는?`);
+        this.showMessage(`${hero.lv} 레벨에서 전사. 다음 도전자는?`);
+        // 게임 종료
         this.quit();
+        // 몬스터의 체력이 0 이하로 떨어질 경우 -> 퇴치
       } else if (monster.hp <= 0) {
         this.showMessage(`몬스터를 잡아 ${monster.xp} 경험치를 얻었다`);
+        // 몬스터의 경험치 양 만큼 획득
         hero.getXp(monster.xp);
+
+        // 몬스터 초기화
         this.monster = null;
+        // 노멀모드 화면으로 전환
         this.changeScreen('game');
+        // 전투 중인 경우
       } else {
         this.showMessage(
           `${hero.atk}의 데미지를 주고, ${monster.atk}의 데미지를 받았다!`
         );
       }
+      // 전투시 영웅의 상태와 몬스터의 상태를 확인
       this.updateHeroStat();
       this.updateMonsterStat();
     }
     if (input === '2') {
       // 회복
     } else if (input === '3') {
-      // 도망
-      this.changeScreen('game');
+      // 게임 종료.
+      this.quit();
     }
   };
   updateHeroStat() {
@@ -129,8 +139,12 @@ class Game {
     $heroAtk.textContent = `ATK: ${hero.atk}`;
   }
   updateMonsterStat() {
+    // 디스트럭쳐링 : 게임 객체 내 몬스터 객체 저장
     const { monster } = this;
+
+    // 몬스터가 없다면
     if (monster === null) {
+      // 몬스터의 이름, HP 상태, 공격력을 초기화 한다.
       $monsterName.textContent = '';
       $monsterHp.textContent = '';
       $monsterAtk.textContent = '';
@@ -143,6 +157,40 @@ class Game {
 
   showMessage(text) {
     $message.textContent = text;
+  }
+
+  quit() {
+    // 영웅과 몬스터 초기화
+    this.hero = null;
+    this.monster = null;
+    // 영웅의 상태와 몬스터의 상태 초기화
+    this.updateHeroStat();
+    this.updateMonsterStat();
+    // 노멀 모드와 전투 모드의 이벤트를 삭제
+    $normalMode.removeEventListener('submit', this.onGameMenuInput);
+    $battleMode.removeEventListener('submit', this.onBattleMenuInput);
+    // 시작 화면으로 이동
+    this.changeScreen('start');
+    // 게임 초기화
+    game = null;
+  }
+
+  getXp(xp) {
+    this.xp += xp;
+    // 몬스터한테 받은 경험치가 현재 레벨 최대 경험치 양보다 많다면
+    if (this.xp >= this.lv * 15) {
+
+      // 영웅 레벨 1업
+      this.lv += 1;
+      // 최대 체력 5 증가
+      this.maxHp += 5;
+      // 공격력 5 증가
+      this.atk += 5;
+      // 체력 완전 회복
+      this.hp = this.maxHp;
+      // 현재 레벨 메시지 출력
+      this.game.showMessage(`레벨 업! 현재 레벨 ${this.lv}`);
+    }
   }
 }
 class Hero {
