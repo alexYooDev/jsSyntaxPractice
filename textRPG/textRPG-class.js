@@ -76,6 +76,7 @@ class Game {
       // 휴식
     } else if (input === '3') {
       // 종료
+      this.quit();
     }
   };
   onBattleMenuInput = (event) => {
@@ -115,8 +116,12 @@ class Game {
     if (input === '2') {
       // 회복
     } else if (input === '3') {
-      // 게임 종료.
-      this.quit();
+      // 도주
+      this.changeScreen('game');
+      $message.textContent = null;
+      $monsterName.textContent = null;
+      $monsterHp.textContent = null;
+      $monsterAtk.textContent = null;
     }
   };
   updateHeroStat() {
@@ -174,29 +179,12 @@ class Game {
     // 게임 초기화
     game = null;
   }
-
-  getXp(xp) {
-    this.xp += xp;
-    // 몬스터한테 받은 경험치가 현재 레벨 최대 경험치 양보다 많다면
-    if (this.xp >= this.lv * 15) {
-
-      // 영웅 레벨 1업
-      this.lv += 1;
-      // 최대 체력 5 증가
-      this.maxHp += 5;
-      // 공격력 5 증가
-      this.atk += 5;
-      // 체력 완전 회복
-      this.hp = this.maxHp;
-      // 현재 레벨 메시지 출력
-      this.game.showMessage(`레벨 업! 현재 레벨 ${this.lv}`);
-    }
-  }
 }
-class Hero {
-  // Hero 클래스 내에도 game이 들아갈 공간이 있음
-  // 영웅을 통해서도 현재 플레이되는 게임에 접근할 수 있어야 함
-  constructor(game, name) {
+
+// 클래스 간의 공통점을 발견하면, 공통적인 것을 모아 공통 클래스를 만들고 클래스 상속을 사용한다.
+
+class Unit {
+  constructor(game, name, hp, atk, xp) {
     this.game = game;
     this.name = name;
     this.lv = 1;
@@ -208,22 +196,52 @@ class Hero {
   attack(target) {
     target.hp -= this.atk;
   }
+}
+//Unit의 element를 상속받는다 (attack)
+class Hero extends Unit {
+  // Hero 클래스 내에도 game이 들아갈 공간이 있음
+  // 영웅을 통해서도 현재 플레이되는 게임에 접근할 수 있어야 함
+  constructor(game, name) {
+    //부모 클래스에 접근(super)하여 생성자 호출 (부모 클래스의 생성자 값을 넣는다)
+    super(game, name, 100, 100, 0);
+    // 겹치지 않는 것
+    this.lv = 1;
+  }
+  // 생략할 경우 알아서 부모 클래스에 해당 메서드가 있는 지 탐색함.
+  attack(target) {
+    super.attack(target);
+    console.log('영웅이 공격');
+  }
+
   heal(monster) {
     this.hp += 20;
     this.hp -= monster.atk;
   }
+  getXp(xp) {
+    this.xp += xp;
+    // 몬스터한테 받은 경험치가 현재 레벨 최대 경험치 양보다 많다면
+    if (this.xp >= this.lv * 15) {
+      this.xp -= this.lv;
+      // 영웅 레벨 1업
+      this.lv += 1;
+      // 최대 체력 5 증가
+      this.maxHp += 5;
+      // 공격력 5 증가
+      this.atk += 5;
+      // 체력 완전 회복
+      this.hp = this.maxHp;
+      // 현재 레벨 출력
+      this.game.showMessage(`레벨 업! 현재 레벨 ${this.lv}`);
+    }
+  }
 }
-class Monster {
+class Monster extends Unit {
   constructor(game, name, hp, atk, xp) {
-    this.game = game;
-    this.name = name;
-    this.maxHp = hp;
-    this.hp = hp;
-    this.xp = xp;
-    this.atk = atk;
+    super(game, name, hp, xp, atk);
   }
   attack(target) {
-    target.hp -= this.atk;
+    super.attack(target);
+    console.log('몬스터가 공격');
   }
 }
 let game = null;
