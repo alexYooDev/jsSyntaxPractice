@@ -197,7 +197,7 @@ class Unit {
     target.hp -= this.atk;
   }
 }
-//Unit의 element를 상속받는다 (attack)
+//Unit의 element를 상속받는다 (attack). 상속은 여러 번에 걸쳐서 할 수 있음. 단 JS는 다중상속 지원 안함.
 class Hero extends Unit {
   // Hero 클래스 내에도 game이 들아갈 공간이 있음
   // 영웅을 통해서도 현재 플레이되는 게임에 접근할 수 있어야 함
@@ -209,8 +209,8 @@ class Hero extends Unit {
   }
   // 생략할 경우 알아서 부모 클래스에 해당 메서드가 있는 지 탐색함.
   attack(target) {
-    super.attack(target);
-    console.log('영웅이 공격');
+    super.attack(target); // 부모 클래스의 메서드
+    console.log('영웅이 공격'); // 그 외 따로 추가할 동작
   }
 
   heal(monster) {
