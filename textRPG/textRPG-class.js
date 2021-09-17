@@ -73,7 +73,7 @@ class Game {
       this.updateMonsterStat();
       this.showMessage(`${randomMonster.name}(와/과) 마주쳤다!`);
     } else if (input === "2") {
-      // 휴식
+      this.hero.hp = this.hero.maxHp;
     } else if (input === "3") {
       // 종료
       this.quit();
@@ -231,6 +231,8 @@ class Hero extends Unit {
       // 체력 완전 회복
       this.hp = this.maxHp;
       // 현재 레벨 출력
+      this.xp = 0;
+      // 경험치 초기화
       this.game.showMessage(`레벨 업! 현재 레벨 ${this.lv}`);
     }
   }
