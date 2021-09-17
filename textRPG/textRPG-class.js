@@ -1,19 +1,19 @@
-'use strict';
+"use strict";
 
-const $startScreen = document.querySelector('#start-screen');
-const $heroStat = document.querySelector('#hero-stat');
-const $heroName = document.querySelector('#hero-name');
-const $heroLevel = document.querySelector('#hero-level');
-const $heroHp = document.querySelector('#hero-hp');
-const $heroXp = document.querySelector('#hero-xp');
-const $heroAtk = document.querySelector('#hero-atk');
-const $monsterName = document.querySelector('#monster-name');
-const $monsterHp = document.querySelector('#monster-hp');
-const $monsterAtk = document.querySelector('#monster-atk');
-const $battleMode = document.querySelector('#battle-mode');
-const $monsterStat = document.querySelector('#monster-stat');
-const $message = document.querySelector('#message');
-const $normalMode = document.querySelector('#normal-mode');
+const $startScreen = document.querySelector("#start-screen");
+const $heroStat = document.querySelector("#hero-stat");
+const $heroName = document.querySelector("#hero-name");
+const $heroLevel = document.querySelector("#hero-level");
+const $heroHp = document.querySelector("#hero-hp");
+const $heroXp = document.querySelector("#hero-xp");
+const $heroAtk = document.querySelector("#hero-atk");
+const $monsterName = document.querySelector("#monster-name");
+const $monsterHp = document.querySelector("#monster-hp");
+const $monsterAtk = document.querySelector("#monster-atk");
+const $battleMode = document.querySelector("#battle-mode");
+const $monsterStat = document.querySelector("#monster-stat");
+const $message = document.querySelector("#message");
+const $normalMode = document.querySelector("#normal-mode");
 
 // 생성자의 경우 대문자로 시작한다
 // 생성자로 새로운 객체를 생성 -> 객체를 찍어내는 틀 (객체 지향형 프로그래밍)
@@ -24,43 +24,43 @@ class Game {
     this.monster = null;
     this.hero = null;
     this.monsterList = [
-      { name: '슬라임', hp: 25, atk: 10, xp: 10 },
-      { name: '스켈레톤', hp: 50, atk: 15, xp: 20 },
-      { name: '마왕', hp: 50, atk: 35, xp: 50 },
+      { name: "슬라임", hp: 25, atk: 10, xp: 10 },
+      { name: "스켈레톤", hp: 50, atk: 15, xp: 20 },
+      { name: "마왕", hp: 50, atk: 35, xp: 50 },
     ];
     this.start(name);
   }
   start(name) {
     // this는 그때그때 달라질 수 있다.
-    $normalMode.addEventListener('submit', this.onGameMenuInput);
-    $battleMode.addEventListener('submit', this.onBattleMenuInput);
-    this.changeScreen('game');
+    $normalMode.addEventListener("submit", this.onGameMenuInput);
+    $battleMode.addEventListener("submit", this.onBattleMenuInput);
+    this.changeScreen("game");
     // 히어로 생성
     this.hero = new Hero(this, name);
     // 히어로 생성 시 스탯 또한 업데이트 한다.
     this.updateHeroStat();
   }
   changeScreen(screen) {
-    if (screen === 'start') {
-      $startScreen.style.display = 'block';
-      $normalMode.style.display = 'none';
-      $battleMode.style.display = 'none';
-    } else if (screen === 'game') {
-      $startScreen.style.display = 'none';
-      $normalMode.style.display = 'block';
-      $battleMode.style.display = 'none';
-    } else if (screen === 'battle') {
-      $startScreen.style.display = 'none';
-      $normalMode.style.display = 'none';
-      $battleMode.style.display = 'block';
+    if (screen === "start") {
+      $startScreen.style.display = "block";
+      $normalMode.style.display = "none";
+      $battleMode.style.display = "none";
+    } else if (screen === "game") {
+      $startScreen.style.display = "none";
+      $normalMode.style.display = "block";
+      $battleMode.style.display = "none";
+    } else if (screen === "battle") {
+      $startScreen.style.display = "none";
+      $normalMode.style.display = "none";
+      $battleMode.style.display = "block";
     }
   }
   onGameMenuInput = (event) => {
     event.preventDefault();
-    const input = event.target['menu-input'].value;
-    if (input === '1') {
+    const input = event.target["menu-input"].value;
+    if (input === "1") {
       // 모험
-      this.changeScreen('battle');
+      this.changeScreen("battle");
       const randomIdx = Math.floor(Math.random() * this.monsterList.length);
       const randomMonster = this.monsterList[randomIdx];
       this.monster = new Monster(
@@ -72,17 +72,17 @@ class Game {
       );
       this.updateMonsterStat();
       this.showMessage(`${randomMonster.name}(와/과) 마주쳤다!`);
-    } else if (input === '2') {
+    } else if (input === "2") {
       // 휴식
-    } else if (input === '3') {
+    } else if (input === "3") {
       // 종료
       this.quit();
     }
   };
   onBattleMenuInput = (event) => {
     event.preventDefault();
-    const input = event.target['battle-input'].value;
-    if (input === '1') {
+    const input = event.target["battle-input"].value;
+    if (input === "1") {
       //공격
       const { hero, monster } = this;
       hero.attack(monster);
@@ -102,7 +102,7 @@ class Game {
         // 몬스터 초기화
         this.monster = null;
         // 노멀모드 화면으로 전환
-        this.changeScreen('game');
+        this.changeScreen("game");
         // 전투 중인 경우
       } else {
         this.showMessage(
@@ -113,11 +113,11 @@ class Game {
       this.updateHeroStat();
       this.updateMonsterStat();
     }
-    if (input === '2') {
+    if (input === "2") {
       // 회복
-    } else if (input === '3') {
+    } else if (input === "3") {
       // 도주
-      this.changeScreen('game');
+      this.changeScreen("game");
       $message.textContent = null;
       $monsterName.textContent = null;
       $monsterHp.textContent = null;
@@ -129,11 +129,11 @@ class Game {
 
     // 캐릭터 생성 전, 널값
     if (hero === null) {
-      $heroName.textContent = '';
-      $heroLevel.textContent = '';
-      $heroHp.textContent = '';
-      $heroXp.textContent = '';
-      $heroAtk.textContent = '';
+      $heroName.textContent = "";
+      $heroLevel.textContent = "";
+      $heroHp.textContent = "";
+      $heroXp.textContent = "";
+      $heroAtk.textContent = "";
       return;
     }
     // 캐릭터가 생기면 화면을 다시 그린다.
@@ -150,9 +150,9 @@ class Game {
     // 몬스터가 없다면
     if (monster === null) {
       // 몬스터의 이름, HP 상태, 공격력을 초기화 한다.
-      $monsterName.textContent = '';
-      $monsterHp.textContent = '';
-      $monsterAtk.textContent = '';
+      $monsterName.textContent = "";
+      $monsterHp.textContent = "";
+      $monsterAtk.textContent = "";
       return;
     }
     $monsterName.textContent = monster.name;
@@ -172,10 +172,10 @@ class Game {
     this.updateHeroStat();
     this.updateMonsterStat();
     // 노멀 모드와 전투 모드의 이벤트를 삭제
-    $normalMode.removeEventListener('submit', this.onGameMenuInput);
-    $battleMode.removeEventListener('submit', this.onBattleMenuInput);
+    $normalMode.removeEventListener("submit", this.onGameMenuInput);
+    $battleMode.removeEventListener("submit", this.onBattleMenuInput);
     // 시작 화면으로 이동
-    this.changeScreen('start');
+    this.changeScreen("start");
     // 게임 초기화
     game = null;
   }
@@ -210,7 +210,7 @@ class Hero extends Unit {
   // 생략할 경우 알아서 부모 클래스에 해당 메서드가 있는 지 탐색함.
   attack(target) {
     super.attack(target); // 부모 클래스의 메서드
-    console.log('영웅이 공격'); // 그 외 따로 추가할 동작
+    console.log("영웅이 공격"); // 그 외 따로 추가할 동작
   }
 
   heal(monster) {
@@ -237,16 +237,20 @@ class Hero extends Unit {
 }
 class Monster extends Unit {
   constructor(game, name, hp, atk, xp) {
-    super(game, name, hp, xp, atk);
+    super(game, name);
+    this.maxHp = hp;
+    this.hp = hp;
+    this.xp = xp;
+    this.atk = atk;
   }
   attack(target) {
     super.attack(target);
-    console.log('몬스터가 공격');
+    console.log("몬스터가 공격");
   }
 }
 let game = null;
-$startScreen.addEventListener('submit', (event) => {
+$startScreen.addEventListener("submit", (event) => {
   event.preventDefault();
-  const name = event.target['name-input'].value;
+  const name = event.target["name-input"].value;
   game = new Game(name);
 });
