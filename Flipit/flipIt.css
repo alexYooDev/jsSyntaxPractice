@@ -9,7 +9,6 @@
   margin: 0 0 20px 20px;
   width: 70px;
   height: 100px;
-  border: 1px solid red;
   perspective: 140px;
 }
 
@@ -22,7 +21,7 @@
   transform-style: preserve-3d;
 }
 
-.card-flipped .card-inner {
+.card.flipped .card-inner {
   transform: rotateY(180deg);
 }
 

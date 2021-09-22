@@ -49,43 +49,17 @@ function createCard(i) {
   const cardBack = document.createElement('div');
   cardBack.className = 'card-back';
 
-  card.style.backgroundColor = shuffled[i];
+  cardBack.style.backgroundColor = shuffled[i];
   cardInner.appendChild(cardFront);
-  cardFront.appendChild(cardBack);
+  cardInner.appendChild(cardBack);
   card.appendChild(cardInner);
 
   return card;
 }
 
-// 카드 클릭 이벤트 함수
-function onClickCard() {
-  //function에서 this => 클릭한 카드 객체
-  this.classList.toggle('flipped');
-  clicked.push(this);
-  console.log(clicked);
-  if (clicked.length !== 2) {
-    return;
-  }
-  const firstCard =
-    clicked[0].querySelector('.card-back').style.backgroundColor;
-  const secondCard =
-    clicked[1].querySelector('.card-back').style.backgroundColor;
-  if (firstCard === secondCard) {
-    // completed.push(clicked[0]); 완성 카드 배열에 넣는다.
-    // completed.push(clicked[1]); 완성 카드 배열에 넣음.
-    // clicked = [];  클릭한 카드 초기화 => 이 세 코드를 아래 한 코드로 가능
-    completed = completed.concat(clicked);
-    return;
-  }
-  // 만약 오답이면
-  clicked[0].classList.remove('flipped'); // 카드를 다시 뒤집는다.
-  clicked[1].classList.remove('flipped'); // 카드를 다시 뒤집는다.
-  clicked = []; //클릭한 카드 초기화
-}
-
 // 게임 시작 함수
 function startGame() {
-  clickable = false;
+  let clickable = false;
   // 카드를 섞고
   shuffle();
 
@@ -109,7 +83,32 @@ function startGame() {
     document.querySelectorAll('.card').forEach((card) => {
       card.classList.remove('flipped');
     });
+    clickable = true;
   }, 5000);
 }
-
 startGame();
+
+// 카드 클릭 이벤트 함수
+function onClickCard() {
+  //function에서 this => 클릭한 카드 객체
+  this.classList.toggle('flipped');
+  clicked.push(this);
+  if (clicked.length !== 2) {
+    return;
+  }
+  const firstBackColor =
+    clicked[0].querySelector('.card-back').style.backgroundColor;
+  const secondBackColor =
+    clicked[1].querySelector('.card-back').style.backgroundColor;
+  if (firstBackColor === secondBackColor) {
+    completed.push(clicked[0]); // 완성 카드 배열에 넣는다.
+    completed.push(clicked[1]); // 완성 카드 배열에 넣음.
+    clicked = []; //  클릭한 카드 초기화 => 이 세 코드를 아래 한 코드로 가능
+    // completed = completed.concat(clicked);
+    return;
+  }
+  // 만약 오답이면
+  clicked[0].classList.remove('flipped'); // 카드를 다시 뒤집는다.
+  clicked[1].classList.remove('flipped'); // 카드를 다시 뒤집는다.
+  clicked = []; //클릭한 카드 초기화
+}
