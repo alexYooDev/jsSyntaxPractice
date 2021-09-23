@@ -1,5 +1,6 @@
 const $wrapper = document.querySelector("#wrapper");
 const $btn = document.querySelector("#btn");
+
 //12개의 카드 2쌍 -> 6가지 색상 배열에 저장(파스텔 톤)
 const colors = [
   "#FF968A",
