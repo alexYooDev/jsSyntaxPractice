@@ -1,0 +1,96 @@
+* {
+  padding: 0;
+  margin: 0;
+<<<<<<< HEAD
+<<<<<<< HEAD
+  font-family: "Times New Roman", Times, serif;
+}
+
+body {
+  margin-top: 1.25rem;
+=======
+  font-family: 'Times New Roman', Times, serif;
+>>>>>>> 9829ca8a60f600ea80f53e714f6c116f5b8e1650
+=======
+  font-family: 'Times New Roman', Times, serif;
+>>>>>>> origin
+}
+
+.card {
+  display: inline-block;
+<<<<<<< HEAD
+<<<<<<< HEAD
+  margin: 0 0 1.25rem 1.25rem;
+  width: 4.375rem;
+  height: 6.25rem;
+  perspective: 8.75rem;
+=======
+=======
+>>>>>>> origin
+  margin: 0 0 20px 20px;
+  width: 70px;
+  height: 100px;
+  perspective: 140px;
+<<<<<<< HEAD
+>>>>>>> 9829ca8a60f600ea80f53e714f6c116f5b8e1650
+=======
+>>>>>>> origin
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front {
+  background: navy;
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+<<<<<<< HEAD
+<<<<<<< HEAD
+  border: 0.0625rem solid black;
+  backface-visibility: hidden;
+  border-radius: 5%;
+=======
+  border: 1px solid black;
+  backface-visibility: hidden;
+>>>>>>> 9829ca8a60f600ea80f53e714f6c116f5b8e1650
+=======
+  border: 1px solid black;
+  backface-visibility: hidden;
+>>>>>>> origin
+}
+
+.card-back {
+  transform: rotateY(180deg);
+<<<<<<< HEAD
+<<<<<<< HEAD
+}
+
+.btn {
+  width: 3rem;
+  height: 2rem;
+  margin: auto;
+  display: block;
+}
+
+.invisible {
+  display: none;
+=======
+>>>>>>> 9829ca8a60f600ea80f53e714f6c116f5b8e1650
+=======
+>>>>>>> origin
+}
