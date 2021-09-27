@@ -30,7 +30,7 @@ function shuffle() {
     const randomIdx = Math.floor(Math.random() * colorCopy.length);
     // 랜덤 인덱스 추출
     const spliced = colorCopy.splice(randomIdx, 1);
-    shuffled.push(spliced[0]); // concat 메서드의 경우, 매개변수 1차원 배열 까지는 flat하여 배열을 만든다.
+    shuffled.push(spliced[0]); //concat 메서드의 경우, 매개변수 1차원 배열 까지는 flat하여 배열을 만든다.
     //shuffled = shuffled.concat(colorCopy.splice(randomIdx, 1));
   }
 }
@@ -120,9 +120,9 @@ function startGame() {
 
   // 카드 찾기
   setTimeout(() => {
-    // 카드 찾기
     document.querySelectorAll(".card").forEach((card) => {
       card.classList.remove("flipped");
+      // 카드 찾기
     });
     clickable = true;
   }, 5000);
